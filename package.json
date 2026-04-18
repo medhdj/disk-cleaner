@@ -1,0 +1,61 @@
+{
+  "name": "disk-cleaner",
+  "version": "1.0.0",
+  "description": "macOS Disk Cleaner — Find duplicates, large files, and reclaim disk space",
+  "main": "dist/main/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:renderer\" \"npm run dev:main\"",
+    "dev:renderer": "vite",
+    "dev:main": "tsc -p tsconfig.main.json --watch",
+    "typecheck": "tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.json --noEmit",
+    "build:renderer": "vite build",
+    "build:main": "esbuild src/main/index.ts src/main/ipc.ts src/main/scanner.ts --outdir=dist/main --platform=node --target=node18 --format=cjs --minify && esbuild src/main/preload.ts --bundle --outdir=dist/main --platform=node --target=node18 --format=cjs --minify --external:electron",
+    "obfuscate:main": "for f in dist/main/*.js; do javascript-obfuscator \"$f\" --output \"$f\" --compact true --identifier-names-generator hexadecimal --string-array true --string-array-encoding base64 --string-array-rotate true --string-array-shuffle true --dead-code-injection false --self-defending false; done",
+    "obfuscate:renderer": "for f in dist/renderer/assets/index-*.js; do javascript-obfuscator \"$f\" --output \"$f\" --compact true --identifier-names-generator hexadecimal --string-array true --string-array-encoding base64 --string-array-rotate true --string-array-shuffle true --dead-code-injection false --self-defending false; done",
+    "build": "bun run typecheck && bun run build:renderer && bun run build:main && bun run obfuscate:main && bun run obfuscate:renderer",
+    "start": "electron .",
+    "dist": "bun run build && electron-builder --mac",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.2.2",
+    "esbuild": "^0.20.0",
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1",
+    "javascript-obfuscator": "^4.1.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.12"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "build": {
+    "appId": "com.diskcleaner.app",
+    "productName": "Disk Cleaner",
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": ["dmg"],
+      "icon": "build/icon.icns"
+    },
+    "dmg": {
+      "title": "Disk Cleaner",
+      "contents": [
+        { "x": 130, "y": 220 },
+        { "x": 410, "y": 220, "type": "link", "path": "/Applications" }
+      ]
+    },
+    "files": [
+      "dist/**/*",
+      "!dist/**/*.map",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Packaged app & release artifacts
+release/
+
+# macOS system files
+.DS_Store
+**/.DS_Store
+
+# Source maps
+*.js.map
