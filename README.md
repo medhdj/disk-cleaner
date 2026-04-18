@@ -14,7 +14,7 @@ A lightweight macOS desktop app to find duplicate files, large files, and reclai
 
 ## Demo
 
-<video src="screen-record.mp4" controls autoplay loop muted width="100%"></video>
+![Disk Cleaner demo](demo.gif)
 
 ## Requirements
 
