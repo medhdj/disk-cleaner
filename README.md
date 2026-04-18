@@ -16,7 +16,24 @@ A lightweight macOS desktop app to find duplicate files, large files, and reclai
 
 ![Disk Cleaner demo](demo.gif)
 
-## Requirements
+## Download
+
+> Pre-built for **Apple Silicon (M1/M2/M3)**. No compilation needed.
+
+[⬇ Download Disk-Cleaner-1.0.0-arm64.dmg](Disk-Cleaner-1.0.0-arm64.dmg)
+
+### Install
+
+1. Open the `.dmg` and drag **Disk Cleaner** to your **Applications** folder
+2. Since the app is not signed with a paid Apple Developer certificate, macOS will block it on first launch. Open Terminal and run:
+
+```bash
+xattr -cr "/Applications/Disk Cleaner.app"
+```
+
+3. Open the app normally — done.
+
+
 
 - macOS 10.13+
 - [Bun](https://bun.sh/) (package manager and runtime)
