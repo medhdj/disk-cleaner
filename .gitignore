@@ -13,3 +13,6 @@ release/
 
 # Source maps
 *.js.map
+
+# Raw screen recordings
+*.mov

@@ -12,9 +12,9 @@ A lightweight macOS desktop app to find duplicate files, large files, and reclai
 - **Protected system paths** — `/System`, `/Library`, `/usr`, `/bin`, etc. are blocked from scanning and deletion
 - **Obfuscated build** — source code is minified and obfuscated in the distributed app
 
-## Screenshots
+## Demo
 
-_(coming soon)_
+<video src="screen-record.mp4" controls autoplay loop muted width="100%"></video>
 
 ## Requirements
 
